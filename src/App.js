@@ -11,6 +11,7 @@ import "./App.css";
 import CurrentQuiz from "./CurrentQuiz";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div className="App">
       <NavBar />
@@ -20,16 +21,16 @@ function App() {
           <Home />
         </Route>
         <Route path="/login">
-          <Login />
+          <Login setIsLoggedIn={setIsLoggedIn} />
         </Route>
         <Route path="/newquiz">
-          <NewQuiz />
+          <NewQuiz isLoggedIn={isLoggedIn} />
         </Route>
         <Route path="/loadquiz">
-          <LoadQuiz />
+          <LoadQuiz isLoggedIn={isLoggedIn} />
         </Route>
         <Route path="/currentquiz">
-          <CurrentQuiz />
+          <CurrentQuiz isLoggedIn={isLoggedIn} />
         </Route>
       </Switch>
     </div>

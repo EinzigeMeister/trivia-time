@@ -18,7 +18,7 @@ function App() {
       <NavBar />
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home user={user} />
         </Route>
         <Route path="/login">
           <Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />

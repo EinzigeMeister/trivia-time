@@ -6,12 +6,12 @@ import Home from "./Home";
 import Login from "./Login";
 import NewQuiz from "./NewQuiz";
 import LoadQuiz from "./LoadQuiz";
-
 import "./App.css";
 import CurrentQuiz from "./CurrentQuiz";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
   return (
     <div className="App">
       <NavBar />
@@ -21,7 +21,7 @@ function App() {
           <Home />
         </Route>
         <Route path="/login">
-          <Login setIsLoggedIn={setIsLoggedIn} />
+          <Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
         </Route>
         <Route path="/newquiz">
           <NewQuiz isLoggedIn={isLoggedIn} />

@@ -30,7 +30,7 @@ function App() {
           <LoadQuiz isLoggedIn={isLoggedIn} />
         </Route>
         <Route path="/currentquiz">
-          <CurrentQuiz isLoggedIn={isLoggedIn} />
+          <CurrentQuiz isLoggedIn={isLoggedIn} user={user} setUser={setUser} />
         </Route>
       </Switch>
     </div>

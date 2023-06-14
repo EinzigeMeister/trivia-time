@@ -6,8 +6,8 @@ function Home({ user }) {
   if (user) {
     user.scores.forEach((quiz) => {
       if (typeof quiz == "undefined") return 0;
-      quizScoreTotals[0] += test[0];
-      quizScoreTotals[1] += test[1];
+      quizScoreTotals[0] += quiz[0];
+      quizScoreTotals[1] += quiz[1];
       completedQuizzes++;
     });
   }

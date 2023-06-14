@@ -5,7 +5,7 @@ function Home({ user }) {
   const quizScoreTotals = [0, 0];
   if (user) {
     user.scores.forEach((quiz) => {
-      if (typeof quiz == "undefined") return 0;
+      if (quiz == null || typeof quiz == "undefined") return 0;
       quizScoreTotals[0] += quiz[0];
       quizScoreTotals[1] += quiz[1];
       completedQuizzes++;

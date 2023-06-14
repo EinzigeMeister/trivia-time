@@ -14,8 +14,8 @@ function App() {
   const [user, setUser] = useState(null);
   return (
     <div className="App">
+      <Header user={user} />
       <NavBar />
-      {/* <Header /> */}
       <Switch>
         <Route exact path="/">
           <Home />

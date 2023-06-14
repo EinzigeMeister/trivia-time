@@ -1,7 +1,7 @@
 import React from "react";
 
-function Header() {
-  return <header className="App-header"> I'm Header doin header things!</header>;
+function Header({ user }) {
+  return <div>{user ? <div>Welcome {user}!</div> : <div>Please login to use app functionality</div>}</div>;
 }
 
 export default Header;

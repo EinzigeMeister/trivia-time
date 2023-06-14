@@ -8,12 +8,30 @@ import NewQuiz from "./NewQuiz";
 import LoadQuiz from "./LoadQuiz";
 
 import "./App.css";
+import CurrentQuiz from "./CurrentQuiz";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
-      <Header />
+      {/* <Header /> */}
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/newquiz">
+          <NewQuiz />
+        </Route>
+        <Route path="/loadquiz">
+          <LoadQuiz />
+        </Route>
+        <Route path="/currentquiz">
+          <CurrentQuiz />
+        </Route>
+      </Switch>
     </div>
   );
 }

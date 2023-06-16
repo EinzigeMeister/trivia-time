@@ -14,15 +14,22 @@ function App() {
   const [quiz, setQuiz] = useState(null);
   const [quizID, setQuizID] = useState(null);
   const [quizBank, setQuizBank] = useState([])
+  const [categoryList, setCategoryList] = useState([])
   useEffect(()=>{
+    loadCatList()
     loadLib()
   },[])
+  async function loadCatList(){
+    const fetchCats = await fetch("https://opentdb.com/api_category.php")
+    const catObj = await fetchCats.json()
+    setCategoryList(catObj["trivia_categories"])
+  }
   async function loadLib(){
     const fetchLib= await fetch("http://localhost:3001/quizLib")
     const fetchObj = await fetchLib.json()
     setQuizBank(fetchObj)
-    console.log(fetchObj)
   }
+  
   return (
     <div className="App">
       <Header user={user} />
@@ -35,7 +42,7 @@ function App() {
           <Login  setUser={setUser} />
         </Route>
         <Route path="/newquiz">
-          <NewQuiz user={user} setQuiz={setQuiz} setQuizID={setQuizID} loadLib={loadLib}/>
+          <NewQuiz user={user} setQuiz={setQuiz} setQuizID={setQuizID} loadLib={loadLib} categoryList={categoryList}/>
         </Route>
         <Route path="/loadquiz">
           <LoadQuiz user={user} setQuizID={setQuizID} setQuiz={setQuiz} quizBank={quizBank} />

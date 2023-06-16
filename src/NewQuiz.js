@@ -2,12 +2,25 @@ import React, {useState, useEffect} from "react";
 import { Redirect } from "react-router-dom";
 function NewQuiz({ user, setQuiz, setQuizID, loadLib }) {
   const [disabled, setDisabled] = useState(false)
-  useEffect(()=>{
+  //initializes setDisabled property on button
+  useEffect(() => {
     setDisabled(false)
   }, [])
   if (!user) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
+  }
+  //update new quiz in json-server
+  async function quizToDB(newQuiz) {
+    const fetchURL = "http://localhost:3001/quizLib/"
+    const fetchBody = {
+      "method": "POST",
+      "headers": { "Content-Type": "application/json" },
+      "body": JSON.stringify(Object.assign({}, { "questions": newQuiz }))
+    }
+    const dbUpdate = await fetch(fetchURL, fetchBody)
+    const dbUpdateObj = await dbUpdate.json()
+    setQuizID(dbUpdateObj.id)
   }
   function handleQuiz() {
     setDisabled(true)
@@ -29,43 +42,31 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib }) {
           return questionObj;
         });
         setQuiz(newQuiz);
-        async function quizToDB(){
-
-          const fetchURL = "http://localhost:3001/quizLib/"
-          const fetchBody={
-            "method": "POST",
-            "headers": {"Content-Type":"application/json"},
-            "body":  JSON.stringify(Object.assign({}, {"questions":newQuiz}))
-          }
-          const dbUpdate = await fetch(fetchURL, fetchBody)
-          const dbUpdateObj = await dbUpdate.json()
-          setQuizID(dbUpdateObj.id)
-          //update library, setTimeout due to json-server restarting causing fetch errors
-          setTimeout(buttonTimeout,1000)
-          function buttonTimeout(){
-            loadLib()
-            setDisabled(false)
-          }
-        }
-        quizToDB()
+        quizToDB(newQuiz)
       } else {
         console.log(quizObj["response_code"]);
         window.alert("Unable to obtain quiz, try again later");
       }
     }
     fetchQuiz();
+    //update library, setTimeout due to json-server restarting causing fetch errors
+    setTimeout(buttonTimeout, 1000)
+    function buttonTimeout() {
+      loadLib()
+      setDisabled(false)
+    }
   }
   return (
-  <>
-  < h1>
-    Create a new Quiz!
-  </h1>
-  <div>
-    <button disabled={disabled} onClick = {handleQuiz}>Generate Quiz</button>
-  </div>
-  </>
+    <>
+      < h1>
+        Create a new Quiz!
+      </h1>
+      <div>
+        <button disabled={disabled} onClick={handleQuiz}>Generate Quiz</button>
+      </div>
+    </>
   );
-  
+
 }
 export default NewQuiz;
 

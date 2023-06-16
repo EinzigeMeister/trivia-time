@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-function NewQuiz({ isLoggedIn, setQuiz, setQuizID }) {
+function NewQuiz({ isLoggedIn, setQuiz, setQuizID, setQuizBank }) {
   if (!isLoggedIn) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
@@ -23,7 +23,6 @@ function NewQuiz({ isLoggedIn, setQuiz, setQuizID }) {
           questionObj.answers.sort(() => Math.random() - 0.5);
           return questionObj;
         });
-        console.log(newQuiz);
         setQuiz(newQuiz);
         async function quizToDB(){
           const fetchURL = "http://localhost:3001/quizLib/"
@@ -35,6 +34,7 @@ function NewQuiz({ isLoggedIn, setQuiz, setQuizID }) {
           const dbUpdate = await fetch(fetchURL, fetchBody)
           const dbUpdateObj = await dbUpdate.json()
           setQuizID(dbUpdateObj.id)
+          setQuizBank(dbUpdateObj.id)
         }
         quizToDB()
       } else {

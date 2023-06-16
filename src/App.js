@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Header from "./Header";
 import NavBar from "./NavBar";
@@ -14,6 +14,16 @@ function App() {
   const [user, setUser] = useState(null);
   const [quiz, setQuiz] = useState(null);
   const [quizID, setQuizID] = useState(null);
+  const [quizBank, setQuizBank] = useState([])
+  useEffect(()=>{
+    loadLib()
+    console.log("ran LoadQuiz useEffect")
+  },[])
+  async function loadLib(){
+    const fetchLib= await fetch("http://localhost:3001/quizLib")
+    const fetchObj = await fetchLib.json()
+    if(quizBank!==fetchObj.length) setQuizBank(fetchObj.length)
+  }
   return (
     <div className="App">
       <Header user={user} />
@@ -26,10 +36,10 @@ function App() {
           <Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
         </Route>
         <Route path="/newquiz">
-          <NewQuiz isLoggedIn={isLoggedIn} setQuiz={setQuiz} setQuizID={setQuizID}/>
+          <NewQuiz isLoggedIn={isLoggedIn} setQuiz={setQuiz} setQuizID={setQuizID} setQuizBank={setQuizBank}/>
         </Route>
         <Route path="/loadquiz">
-          <LoadQuiz isLoggedIn={isLoggedIn} setQuizID={setQuizID} setQuiz={setQuiz} />
+          <LoadQuiz isLoggedIn={isLoggedIn} setQuizID={setQuizID} setQuiz={setQuiz} quizBank={quizBank} />
         </Route>
         <Route path="/currentquiz">
           <CurrentQuiz isLoggedIn={isLoggedIn} user={user} setUser={setUser} quiz={quiz} quizID={quizID}/>

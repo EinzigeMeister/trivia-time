@@ -1,17 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Redirect } from "react-router-dom";
-function LoadQuiz({ isLoggedIn, setQuizID, setQuiz }) {
-  const [quizBank, setQuizBank] = useState(null)
+function LoadQuiz({ isLoggedIn, setQuizID, setQuiz , quizBank}) {
   const [formData, setFormData] = useState(1)
-  useEffect(()=>{
-    async function loadLib(){
-      const fetchLib= await fetch("http://localhost:3001/quizLib")
-      const fetchObj = await fetchLib.json()
-      if(quizBank!==fetchObj.length) setQuizBank(fetchObj.length)
-    }
-    loadLib()
-    console.log("ran LoadQuiz useEffect")
-  },)
 
   if (!isLoggedIn) {
     window.alert("You must Login first, redirecting you to login");

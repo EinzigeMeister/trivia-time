@@ -22,6 +22,7 @@ function App() {
   async function loadCatList(){
     const fetchCats = await fetch("https://opentdb.com/api_category.php")
     const catObj = await fetchCats.json()
+    catObj["trivia_categories"].unshift({id:8, name:"All"})
     setCategoryList(catObj["trivia_categories"])
   }
   async function loadLib(){
@@ -29,7 +30,7 @@ function App() {
     const fetchObj = await fetchLib.json()
     setQuizBank(fetchObj)
   }
-  
+
   return (
     <div className="App">
       <Header user={user} />

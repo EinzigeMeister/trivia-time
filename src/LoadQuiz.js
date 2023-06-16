@@ -17,7 +17,6 @@ function LoadQuiz({ isLoggedIn, setQuizID, setQuiz }) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
   }
-  //TODO: generate form with a <p> informing max quiz ID, a textbox for entering quiz number {state}, and a submit button to set the quiz ID 
   function handleSubmit(e){
     e.preventDefault()
     if(isNaN(formData)){
@@ -28,6 +27,13 @@ function LoadQuiz({ isLoggedIn, setQuizID, setQuiz }) {
         window.alert(`Enter a number between 1 and ${quizBank}`)
       }
       else{
+        //fetch & update quiz
+        async function updateQuiz(){
+          const loadQuizRaw = await fetch(`http://localhost:3001/quizLib/${formData}`)
+          const loadQuizObj = await loadQuizRaw.json()
+          setQuiz(loadQuizObj.questions)
+        }
+        updateQuiz()
         setQuizID(formData)
       }
     }

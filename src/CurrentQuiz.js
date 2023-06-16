@@ -16,20 +16,12 @@ function CurrentQuiz({ isLoggedIn, user, setUser, quizID, quiz }) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
   }
+  //Redirects if there isn't a quiz to load
   if(!quiz || quizID == null){
     window.alert("No quiz selected, create or load a quiz first");
     return <Redirect to="/" />;
   }
-  //TO-DO generate a form based off test data
-  function quizToDB(){
-    const fetchURL = "http://localhost:3001/quizLib/"
-    const fetchBody={
-      "method": "POST",
-      "headers": {"Content-Type":"application/json"},
-      "body":  JSON.stringify(Object.assign({}, {"questions":quiz}))
-    }
-    fetch(fetchURL, fetchBody)
-  }
+ 
   function handleAnswerChange(e) {
     const answerUpdate = [...quizAnswers];
     answerUpdate[e.target.name] = e.target.value;
@@ -46,7 +38,6 @@ function CurrentQuiz({ isLoggedIn, user, setUser, quizID, quiz }) {
     const userUpdate = Object.assign({}, user, { scores: scoreUpdate });
     setUser(userUpdate);
     window.alert(`Quiz completed! You got ${correct} out of ${quiz.length} questions correct!`);
-    quizToDB()
   }
   return (
     <>

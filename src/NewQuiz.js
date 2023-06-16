@@ -1,6 +1,6 @@
 import React from "react";
-import { useHistory, Redirect } from "react-router-dom";
-function NewQuiz({ isLoggedIn, setQuiz }) {
+import { Redirect } from "react-router-dom";
+function NewQuiz({ isLoggedIn, setQuiz, setQuizID }) {
   if (!isLoggedIn) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
@@ -25,6 +25,18 @@ function NewQuiz({ isLoggedIn, setQuiz }) {
         });
         console.log(newQuiz);
         setQuiz(newQuiz);
+        async function quizToDB(){
+          const fetchURL = "http://localhost:3001/quizLib/"
+          const fetchBody={
+            "method": "POST",
+            "headers": {"Content-Type":"application/json"},
+            "body":  JSON.stringify(Object.assign({}, {"questions":newQuiz}))
+          }
+          const dbUpdate = await fetch(fetchURL, fetchBody)
+          const dbUpdateObj = await dbUpdate.json()
+          setQuizID(dbUpdateObj.id)
+        }
+        quizToDB()
       } else {
         console.log(quizObj["response_code"]);
         window.alert("Unable to obtain quiz, try again later");
@@ -33,10 +45,16 @@ function NewQuiz({ isLoggedIn, setQuiz }) {
     fetchQuiz();
   }
   return (
+  <>
   < h1>
-    This is a new Quiz
+    Create a new Quiz!
   </h1>
+  <div>
+    <button onClick = {handleQuiz}>Generate Quiz</button>
+  </div>
+  </>
   );
+  
 }
 export default NewQuiz;
 

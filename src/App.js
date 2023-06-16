@@ -13,6 +13,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [quiz, setQuiz] = useState(null);
+  const [quizID, setQuizID] = useState(null);
   return (
     <div className="App">
       <Header user={user} />
@@ -25,13 +26,13 @@ function App() {
           <Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
         </Route>
         <Route path="/newquiz">
-          <NewQuiz isLoggedIn={isLoggedIn} />
+          <NewQuiz isLoggedIn={isLoggedIn} setQuiz={setQuiz} setQuizID={setQuizID}/>
         </Route>
         <Route path="/loadquiz">
           <LoadQuiz isLoggedIn={isLoggedIn} />
         </Route>
         <Route path="/currentquiz">
-          <CurrentQuiz isLoggedIn={isLoggedIn} user={user} setUser={setUser} quiz={quiz} quizID="1"/>
+          <CurrentQuiz isLoggedIn={isLoggedIn} user={user} setUser={setUser} quiz={quiz} quizID={quizID}/>
         </Route>
       </Switch>
     </div>

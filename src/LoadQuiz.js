@@ -13,8 +13,8 @@ function LoadQuiz({ user, setQuizID, setQuiz , quizBank}) {
       window.alert(`${formData} is not a number, please enter a valid number`)
     }
     else{
-      if(formData>quizBank.length || formData<=0){
-        window.alert(`Enter a number between 1 and ${quizBank.length}`)
+      if(formData>quizBank.length || formData<=0 ||!Number.isInteger(formData)){
+        window.alert(`Enter a whole number between 1 and ${quizBank.length}`)
       }
       else{
         //fetch & update quiz
@@ -28,16 +28,13 @@ function LoadQuiz({ user, setQuizID, setQuiz , quizBank}) {
       }
     }
   }
-  function handleIDChange(e){
-    setFormData(e.target.value)
-  }
   return <>{quizBank
     ?(
     <>
     <h2>Enter the ID for the quiz you would like to know. Max ID: {quizBank.length}</h2>
     <form onSubmit={handleSubmit}>
       <label >Quiz ID: </label>
-      <input type = "text" name="textID" value={formData} onChange={handleIDChange} />
+      <input type = "text" name="textID" value={formData} onChange={(e)=>setFormData(e.target.value)} />
       <input type = "submit"/>
     </form>
     </>)

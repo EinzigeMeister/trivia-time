@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { Redirect } from "react-router-dom";
 function LoadQuiz({ user, setQuizID, setQuiz , quizBank}) {
   const [formData, setFormData] = useState(1)
@@ -13,8 +13,8 @@ function LoadQuiz({ user, setQuizID, setQuiz , quizBank}) {
       window.alert(`${formData} is not a number, please enter a valid number`)
     }
     else{
-      if(formData>quizBank || formData<=0){
-        window.alert(`Enter a number between 1 and ${quizBank}`)
+      if(formData>quizBank.length || formData<=0){
+        window.alert(`Enter a number between 1 and ${quizBank.length}`)
       }
       else{
         //fetch & update quiz
@@ -34,7 +34,7 @@ function LoadQuiz({ user, setQuizID, setQuiz , quizBank}) {
   return <>{quizBank
     ?(
     <>
-    <h2>Enter the ID for the quiz you would like to know. Max ID: {quizBank}</h2>
+    <h2>Enter the ID for the quiz you would like to know. Max ID: {quizBank.length}</h2>
     <form onSubmit={handleSubmit}>
       <label >Quiz ID: </label>
       <input type = "text" name="textID" value={formData} onChange={handleIDChange} />

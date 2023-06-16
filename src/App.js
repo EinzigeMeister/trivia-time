@@ -16,12 +16,12 @@ function App() {
   const [quizBank, setQuizBank] = useState([])
   useEffect(()=>{
     loadLib()
-    console.log("ran LoadQuiz useEffect")
   },[])
   async function loadLib(){
     const fetchLib= await fetch("http://localhost:3001/quizLib")
     const fetchObj = await fetchLib.json()
-    if(quizBank!==fetchObj.length) setQuizBank(fetchObj.length)
+    setQuizBank(fetchObj)
+    console.log(fetchObj)
   }
   return (
     <div className="App">
@@ -35,7 +35,7 @@ function App() {
           <Login  setUser={setUser} />
         </Route>
         <Route path="/newquiz">
-          <NewQuiz user={user} setQuiz={setQuiz} setQuizID={setQuizID} setQuizBank={setQuizBank}/>
+          <NewQuiz user={user} setQuiz={setQuiz} setQuizID={setQuizID} loadLib={loadLib}/>
         </Route>
         <Route path="/loadquiz">
           <LoadQuiz user={user} setQuizID={setQuizID} setQuiz={setQuiz} quizBank={quizBank} />

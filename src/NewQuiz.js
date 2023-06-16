@@ -1,11 +1,16 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Redirect } from "react-router-dom";
-function NewQuiz({ user, setQuiz, setQuizID, setQuizBank }) {
+function NewQuiz({ user, setQuiz, setQuizID, loadLib }) {
+  const [disabled, setDisabled] = useState(false)
+  useEffect(()=>{
+    setDisabled(false)
+  }, [])
   if (!user) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
   }
   function handleQuiz() {
+    setDisabled(true)
     async function fetchQuiz() {
       const numberOfQuestions = 2;
       const fetchURL = `https://opentdb.com/api.php?type=multiple&encode=base64&amount=${numberOfQuestions}&token=`;
@@ -25,6 +30,7 @@ function NewQuiz({ user, setQuiz, setQuizID, setQuizBank }) {
         });
         setQuiz(newQuiz);
         async function quizToDB(){
+
           const fetchURL = "http://localhost:3001/quizLib/"
           const fetchBody={
             "method": "POST",
@@ -34,7 +40,12 @@ function NewQuiz({ user, setQuiz, setQuizID, setQuizBank }) {
           const dbUpdate = await fetch(fetchURL, fetchBody)
           const dbUpdateObj = await dbUpdate.json()
           setQuizID(dbUpdateObj.id)
-          setQuizBank(dbUpdateObj.id)
+          //update library, setTimeout due to json-server restarting causing fetch errors
+          setTimeout(buttonTimeout,1000)
+          function buttonTimeout(){
+            loadLib()
+            setDisabled(false)
+          }
         }
         quizToDB()
       } else {
@@ -50,7 +61,7 @@ function NewQuiz({ user, setQuiz, setQuizID, setQuizBank }) {
     Create a new Quiz!
   </h1>
   <div>
-    <button onClick = {handleQuiz}>Generate Quiz</button>
+    <button disabled={disabled} onClick = {handleQuiz}>Generate Quiz</button>
   </div>
   </>
   );

@@ -29,7 +29,7 @@ function App() {
           <NewQuiz isLoggedIn={isLoggedIn} setQuiz={setQuiz} setQuizID={setQuizID}/>
         </Route>
         <Route path="/loadquiz">
-          <LoadQuiz isLoggedIn={isLoggedIn} setQuizID={setQuizID} />
+          <LoadQuiz isLoggedIn={isLoggedIn} setQuizID={setQuizID} setQuiz={setQuiz} />
         </Route>
         <Route path="/currentquiz">
           <CurrentQuiz isLoggedIn={isLoggedIn} user={user} setUser={setUser} quiz={quiz} quizID={quizID}/>

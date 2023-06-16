@@ -14,6 +14,7 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
   }
+  const numQArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   //update new quiz in json-server
   async function quizToDB(newQuiz) {
     const fetchURL = "http://localhost:3001/quizLib/"
@@ -26,7 +27,8 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
     const dbUpdateObj = await dbUpdate.json()
     setQuizID(dbUpdateObj.id)
   }
-  function handleQuiz() {
+  function handleQuiz(e) {
+    e.preventDefault()
     setDisabled(true)
     async function fetchQuiz() {
       //if All is selected, don't fetch by category, otherwise add a category filter
@@ -34,7 +36,6 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
       const fetchURL = `https://opentdb.com/api.php?type=multiple&encode=base64${categoryString}&&amount=${formData.numberOfQuestions}&token=`;
       const fetchRaw = await fetch(fetchURL);
       const quizObj = await fetchRaw.json();
-      console.log(quizObj)
       //response code 0 = success
       if (quizObj["response_code"] === 0) {
         const newQuiz = quizObj.results.map((q) => {
@@ -55,16 +56,22 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
       }
     }
     fetchQuiz();
-    //update library, setTimeout due to json-server restarting causing fetch errors
+    //update library, setTimeout due to json-server restarting between POST quiz to DB & GET quiz library causing fetch errors
     setTimeout(buttonTimeout, 1000)
     function buttonTimeout() {
       loadLib()
       setDisabled(false)
     }
-
   }
-  function handleChange(e) {
-    setFormData(Object.assign({}, { id: e.target.value, category: e.target[e.target.value - 8].label }))
+  function handleCategoryChange(e) {
+    const categoryObj = {
+      id: e.target.value,
+      name: e.target[e.target.value - 8].label
+    }
+    setFormData(Object.assign({}, formData, { category: categoryObj }))
+  }
+  function handleNumQuestionsChange(e) {
+    setFormData(Object.assign({}, formData, { numberOfQuestions: e.target.value }))
   }
   return (
     <>
@@ -72,13 +79,20 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
         Create a new Quiz!
       </h1>
       <form onSubmit={handleQuiz} >
-        <p>Category</p>
-        <select onChange={handleChange} value={formData.id}>
-          {categoryList.map(({ id, name }) => {
-            return <option key={id} value={id} label={name} />
-          })}
-
-        </select>
+        <div>
+          <label>Category: </label>
+          <select onChange={handleCategoryChange} value={formData.category.id}>
+            {categoryList.map(({ id, name }) => {
+              return <option key={id} value={id} label={name} />
+            })}
+          </select>
+        </div>
+        <div>
+          <label>Number of questions: </label>
+          <select onChange={handleNumQuestionsChange} value = {formData.numberOfQuestions}>
+              {numQArr.map(n=><option key={n} value={n} label={n}/>)}
+          </select>
+        </div>
         <input type="submit" disabled={disabled} value="Generate Quiz" />
       </form>
     </>

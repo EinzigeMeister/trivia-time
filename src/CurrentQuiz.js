@@ -18,7 +18,15 @@ function CurrentQuiz({ isLoggedIn, user, setUser }) {
     return <Redirect to="/login" />;
   }
   //TO-DO generate a form based off test data
-
+  function quizToDB(){
+    const fetchURL = "http://localhost:3001/quizLib/"
+    const fetchBody={
+      "method": "POST",
+      "headers": {"Content-Type":"application/json"},
+      "body":  JSON.stringify(Object.assign({}, {"questions":quiz}))
+    }
+    fetch(fetchURL, fetchBody)
+  }
   const numberOfQuestions = 2;
   const fetchURL = `https://opentdb.com/api.php?type=multiple&encode=base64&amount=${numberOfQuestions}&token=`;
 
@@ -63,6 +71,7 @@ function CurrentQuiz({ isLoggedIn, user, setUser }) {
     const userUpdate = Object.assign({}, user, { scores: scoreUpdate });
     setUser(userUpdate);
     window.alert(`Quiz completed! You got ${correct} out of ${quiz.length} questions correct!`);
+    quizToDB()
   }
   return (
     <>

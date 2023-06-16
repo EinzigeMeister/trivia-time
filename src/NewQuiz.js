@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
   const [disabled, setDisabled] = useState(false)
   const [formData, setFormData] = useState({
     numberOfQuestions: 1,
     category: categoryList[0]
   })
+  let history = useHistory()
   //initializes setDisabled property on button
   useEffect(() => {
     setDisabled(false)
@@ -38,18 +40,10 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
       const quizObj = await fetchRaw.json();
       //response code 0 = success
       if (quizObj["response_code"] === 0) {
-        const newQuiz = quizObj.results.map((q) => {
-          const questionObj = {};
-          //encode=base64 sends base64 back to ensure special characters are formatted properly, requires decoding via atob()
-          questionObj.name = atob(q.question);
-          questionObj.answers = [atob(q["correct_answer"]), atob(q["incorrect_answers"][0]), atob(q["incorrect_answers"][1]), atob(q["incorrect_answers"][2])];
-          questionObj["correct_answer"] = questionObj.answers[0];
-          //Randomizes the array to prevent the first answer from always being the correct answer
-          questionObj.answers.sort(() => Math.random() - 0.5);
-          return questionObj;
-        });
+        const newQuiz = generateQuiz(quizObj)
         setQuiz(newQuiz);
         quizToDB(newQuiz)
+        history.push("/currentquiz")
       } else {
         console.log(quizObj["response_code"]);
         window.alert("Unable to obtain quiz, try again later");
@@ -72,6 +66,18 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
   }
   function handleNumQuestionsChange(e) {
     setFormData(Object.assign({}, formData, { numberOfQuestions: e.target.value }))
+  }
+  function generateQuiz(quizObj){
+    return quizObj.results.map((q) => {
+      const questionObj = {};
+      //encode=base64 sends base64 back to ensure special characters are formatted properly, requires decoding via atob()
+      questionObj.name = atob(q.question);
+      questionObj.answers = [atob(q["correct_answer"]), atob(q["incorrect_answers"][0]), atob(q["incorrect_answers"][1]), atob(q["incorrect_answers"][2])];
+      questionObj["correct_answer"] = questionObj.answers[0];
+      //Randomizes the array to prevent the first answer from always being the correct answer
+      questionObj.answers.sort(() => Math.random() - 0.5);
+      return questionObj;
+    });
   }
   return (
     <>

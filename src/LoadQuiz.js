@@ -1,12 +1,15 @@
 import React, {useState} from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 function LoadQuiz({ user, setQuizID, setQuiz , quizBank}) {
   const [formData, setFormData] = useState(1)
+  let history=useHistory()
 
+  //State variables & hooks ^^ begin conditional code
   if (!user) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
   }
+  
   function handleSubmit(e){
     e.preventDefault()
     if(isNaN(formData)){
@@ -25,6 +28,7 @@ function LoadQuiz({ user, setQuizID, setQuiz , quizBank}) {
         }
         updateQuiz()
         setQuizID(formData)
+        history.push("/currentquiz")
       }
     }
   }

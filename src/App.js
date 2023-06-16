@@ -12,6 +12,7 @@ import CurrentQuiz from "./CurrentQuiz";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [quiz, setQuiz] = useState(null);
   return (
     <div className="App">
       <Header user={user} />
@@ -30,7 +31,7 @@ function App() {
           <LoadQuiz isLoggedIn={isLoggedIn} />
         </Route>
         <Route path="/currentquiz">
-          <CurrentQuiz isLoggedIn={isLoggedIn} user={user} setUser={setUser} />
+          <CurrentQuiz isLoggedIn={isLoggedIn} user={user} setUser={setUser} quiz={quiz} quizID="1"/>
         </Route>
       </Switch>
     </div>

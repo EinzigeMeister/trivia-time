@@ -10,7 +10,6 @@ import "./App.css";
 import CurrentQuiz from "./CurrentQuiz";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [quiz, setQuiz] = useState(null);
   const [quizID, setQuizID] = useState(null);
@@ -33,16 +32,16 @@ function App() {
           <Home user={user} />
         </Route>
         <Route path="/login">
-          <Login setIsLoggedIn={setIsLoggedIn} setUser={setUser} />
+          <Login  setUser={setUser} />
         </Route>
         <Route path="/newquiz">
-          <NewQuiz isLoggedIn={isLoggedIn} setQuiz={setQuiz} setQuizID={setQuizID} setQuizBank={setQuizBank}/>
+          <NewQuiz user={user} setQuiz={setQuiz} setQuizID={setQuizID} setQuizBank={setQuizBank}/>
         </Route>
         <Route path="/loadquiz">
-          <LoadQuiz isLoggedIn={isLoggedIn} setQuizID={setQuizID} setQuiz={setQuiz} quizBank={quizBank} />
+          <LoadQuiz user={user} setQuizID={setQuizID} setQuiz={setQuiz} quizBank={quizBank} />
         </Route>
         <Route path="/currentquiz">
-          <CurrentQuiz isLoggedIn={isLoggedIn} user={user} setUser={setUser} quiz={quiz} quizID={quizID}/>
+          <CurrentQuiz  user={user} setUser={setUser} quiz={quiz} quizID={quizID}/>
         </Route>
       </Switch>
     </div>

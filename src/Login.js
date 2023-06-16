@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-function Login({ setIsLoggedIn, setUser }) {
+function Login({ setUser }) {
   const [userForm, setUserForm] = useState("");
   const [userList, setUserList] = useState([]);
   const fetchURL = "http://localhost:3001/users/";
@@ -49,8 +49,6 @@ function Login({ setIsLoggedIn, setUser }) {
       }
       addNewUser();
     }
-
-    setIsLoggedIn(true);
     setUserForm("");
   }
   function handleUserChange(e) {

@@ -2,7 +2,7 @@
 //TODO: Transfer quiz creation to NewQuiz component, have NewQuiz redirect to CurrentQuiz
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-function CurrentQuiz({ isLoggedIn, user, setUser, quizID, quiz }) {
+function CurrentQuiz({ user, setUser, quizID, quiz }) {
   const [quizAnswers, setQuizAnswers] = useState([]);
   //Sets user's default answer to the first radio button
   useEffect(() => {
@@ -14,7 +14,7 @@ function CurrentQuiz({ isLoggedIn, user, setUser, quizID, quiz }) {
     setQuizAnswers(initializeAnswers);
   }, [quiz]);
 
-  if (!isLoggedIn) {
+  if (!user) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
   }

@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from "react";
 import { Redirect } from "react-router-dom";
-function LoadQuiz({ isLoggedIn, setQuizID, setQuiz , quizBank}) {
+function LoadQuiz({ user, setQuizID, setQuiz , quizBank}) {
   const [formData, setFormData] = useState(1)
 
-  if (!isLoggedIn) {
+  if (!user) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
   }

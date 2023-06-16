@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-function NewQuiz({ isLoggedIn, setQuiz, setQuizID, setQuizBank }) {
-  if (!isLoggedIn) {
+function NewQuiz({ user, setQuiz, setQuizID, setQuizBank }) {
+  if (!user) {
     window.alert("You must Login first, redirecting you to login");
     return <Redirect to="/login" />;
   }

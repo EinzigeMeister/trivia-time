@@ -61,17 +61,49 @@ function CurrentQuiz({ user, setUser, quizID, quiz }) {
         {quiz.map((question, index) => {
           return (
             <div key={question.name}>
-              <h3>
+              <h3 className="Question">
                 {index + 1}: {question.name}
               </h3>
-              <input type="radio" value={question.answers[0]} name={index} checked={question.answers[0] === quizAnswers[index]} onChange={handleAnswerChange} />
-              {question.answers[0]}
-              <input type="radio" value={question.answers[1]} name={index} checked={question.answers[1] === quizAnswers[index]} onChange={handleAnswerChange} />
-              {question.answers[1]}
-              <input type="radio" value={question.answers[2]} name={index} checked={question.answers[2] === quizAnswers[index]} onChange={handleAnswerChange} />
-              {question.answers[2]}
-              <input type="radio" value={question.answers[3]} name={index} checked={question.answers[3] === quizAnswers[index]} onChange={handleAnswerChange} />
-              {question.answers[3]}
+              <p>
+                <input
+                  type="radio"
+                  value={question.answers[0]}
+                  name={index}
+                  checked={question.answers[0] === quizAnswers[index]}
+                  onChange={handleAnswerChange}
+                />
+                {question.answers[0]}{" "}
+              </p>
+              <p>
+                <input
+                  type="radio"
+                  value={question.answers[1]}
+                  name={index}
+                  checked={question.answers[1] === quizAnswers[index]}
+                  onChange={handleAnswerChange}
+                />
+                {question.answers[1]}
+              </p>
+              <p>
+                <input
+                  type="radio"
+                  value={question.answers[2]}
+                  name={index}
+                  checked={question.answers[2] === quizAnswers[index]}
+                  onChange={handleAnswerChange}
+                />
+                {question.answers[2]}
+              </p>
+              <p>
+                <input
+                  type="radio"
+                  value={question.answers[3]}
+                  name={index}
+                  checked={question.answers[3] === quizAnswers[index]}
+                  onChange={handleAnswerChange}
+                />
+                {question.answers[3]}
+              </p>
             </div>
           );
         })}

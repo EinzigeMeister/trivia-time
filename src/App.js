@@ -13,22 +13,22 @@ function App() {
   const [user, setUser] = useState(null);
   const [quiz, setQuiz] = useState(null);
   const [quizID, setQuizID] = useState(null);
-  const [quizBank, setQuizBank] = useState([])
-  const [categoryList, setCategoryList] = useState([])
-  useEffect(()=>{
-    loadCatList()
-    loadLib()
-  },[])
-  async function loadCatList(){
-    const fetchCats = await fetch("https://opentdb.com/api_category.php")
-    const catObj = await fetchCats.json()
-    catObj["trivia_categories"].unshift({id:8, name:"All"})
-    setCategoryList(catObj["trivia_categories"])
+  const [quizBank, setQuizBank] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+  useEffect(() => {
+    loadCatList();
+    loadLib();
+  }, []);
+  async function loadCatList() {
+    const fetchCats = await fetch("https://opentdb.com/api_category.php");
+    const catObj = await fetchCats.json();
+    catObj["trivia_categories"].unshift({ id: 8, name: "All" });
+    setCategoryList(catObj["trivia_categories"]);
   }
-  async function loadLib(){
-    const fetchLib= await fetch("http://localhost:3001/quizLib")
-    const fetchObj = await fetchLib.json()
-    setQuizBank(fetchObj)
+  async function loadLib() {
+    const fetchLib = await fetch("http://localhost:3001/quizLib");
+    const fetchObj = await fetchLib.json();
+    setQuizBank(fetchObj);
   }
 
   return (
@@ -40,16 +40,16 @@ function App() {
           <Home user={user} />
         </Route>
         <Route path="/login">
-          <Login  setUser={setUser} />
+          <Login setUser={setUser} />
         </Route>
         <Route path="/newquiz">
-          <NewQuiz user={user} setQuiz={setQuiz} setQuizID={setQuizID} loadLib={loadLib} categoryList={categoryList}/>
+          <NewQuiz user={user} setQuiz={setQuiz} setQuizID={setQuizID} loadLib={loadLib} categoryList={categoryList} />
         </Route>
         <Route path="/loadquiz">
           <LoadQuiz user={user} setQuizID={setQuizID} setQuiz={setQuiz} quizBank={quizBank} />
         </Route>
         <Route path="/currentquiz">
-          <CurrentQuiz  user={user} setUser={setUser} quiz={quiz} quizID={quizID}/>
+          <CurrentQuiz user={user} setUser={setUser} quiz={quiz} quizID={quizID} />
         </Route>
       </Switch>
     </div>

@@ -19,11 +19,11 @@ function CurrentQuiz({ user, setUser, quizID, quiz }) {
     return <Redirect to="/login" />;
   }
   //Redirects if there isn't a quiz to load
-  if(!quiz || quizID == null){
+  if (!quiz || quizID == null) {
     window.alert("No quiz selected, create or load a quiz first");
     return <Redirect to="/" />;
   }
- 
+
   function handleAnswerChange(e) {
     const answerUpdate = [...quizAnswers];
     answerUpdate[e.target.name] = e.target.value;
@@ -39,69 +39,44 @@ function CurrentQuiz({ user, setUser, quizID, quiz }) {
     const scoreUpdate = [...user.scores];
     scoreUpdate[quizID] = [correct, quiz.length];
     const userUpdate = Object.assign({}, user, { scores: scoreUpdate });
-    async function updateUserDB(){
-      const fetchURL = `http://localhost:3001/users/${user.id}`
-      const fetchBody={
-        "method": "PATCH",
-        "headers": {
-          "Content-Type": "application/json"
+    async function updateUserDB() {
+      const fetchURL = `http://localhost:3001/users/${user.id}`;
+      const fetchBody = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
         },
-        "body": JSON.stringify(userUpdate)
-      }
-      const userPatch = await fetch(fetchURL, fetchBody)
-      const userPatchObj = await userPatch.json()
+        body: JSON.stringify(userUpdate),
+      };
+      const userPatch = await fetch(fetchURL, fetchBody);
+      const userPatchObj = await userPatch.json();
       setUser(userPatchObj);
     }
-    updateUserDB()
+    updateUserDB();
     window.alert(`Quiz completed! You got ${correct} out of ${quiz.length} questions correct!`);
   }
   return (
     <>
-        <form onSubmit={handleGradeQuiz}>
-          {quiz.map((question, index) => {
-            return (
-              <div key={question.name}>
-                <h3>
-                  {index + 1}: {question.name}
-                </h3>
-                <input
-                  type="radio"
-                  value={question.answers[0]}
-                  name={index}
-                  checked={question.answers[0] === quizAnswers[index]}
-                  onChange={handleAnswerChange}
-                />
-                {question.answers[0]}
-                <input
-                  type="radio"
-                  value={question.answers[1]}
-                  name={index}
-                  checked={question.answers[1] === quizAnswers[index]}
-                  onChange={handleAnswerChange}
-                />
-                {question.answers[1]}
-                <input
-                  type="radio"
-                  value={question.answers[2]}
-                  name={index}
-                  checked={question.answers[2] === quizAnswers[index]}
-                  onChange={handleAnswerChange}
-                />
-                {question.answers[2]}
-                <input
-                  type="radio"
-                  value={question.answers[3]}
-                  name={index}
-                  checked={question.answers[3] === quizAnswers[index]}
-                  onChange={handleAnswerChange}
-                />
-                {question.answers[3]}
-              </div>
-            );
-          })}
-          <input type="submit" />
-        </form>
-
+      <form onSubmit={handleGradeQuiz}>
+        {quiz.map((question, index) => {
+          return (
+            <div key={question.name}>
+              <h3>
+                {index + 1}: {question.name}
+              </h3>
+              <input type="radio" value={question.answers[0]} name={index} checked={question.answers[0] === quizAnswers[index]} onChange={handleAnswerChange} />
+              {question.answers[0]}
+              <input type="radio" value={question.answers[1]} name={index} checked={question.answers[1] === quizAnswers[index]} onChange={handleAnswerChange} />
+              {question.answers[1]}
+              <input type="radio" value={question.answers[2]} name={index} checked={question.answers[2] === quizAnswers[index]} onChange={handleAnswerChange} />
+              {question.answers[2]}
+              <input type="radio" value={question.answers[3]} name={index} checked={question.answers[3] === quizAnswers[index]} onChange={handleAnswerChange} />
+              {question.answers[3]}
+            </div>
+          );
+        })}
+        <input type="submit" />
+      </form>
     </>
   );
 }

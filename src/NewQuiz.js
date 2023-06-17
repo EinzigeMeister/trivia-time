@@ -72,7 +72,12 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
       const questionObj = {};
       //encode=base64 sends base64 back to ensure special characters are formatted properly, requires decoding via atob()
       questionObj.name = atob(q.question);
-      questionObj.answers = [atob(q["correct_answer"]), atob(q["incorrect_answers"][0]), atob(q["incorrect_answers"][1]), atob(q["incorrect_answers"][2])];
+      questionObj.answers = [
+        atob(q["correct_answer"].replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;")),
+        atob(q["incorrect_answers"][0]).replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;"),
+        atob(q["incorrect_answers"][1]).replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;"),
+        atob(q["incorrect_answers"][2]).replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;"),
+      ];
       questionObj["correct_answer"] = questionObj.answers[0];
       //Randomizes the array to prevent the first answer from always being the correct answer
       questionObj.answers.sort(() => Math.random() - 0.5);

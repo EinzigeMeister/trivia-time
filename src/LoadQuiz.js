@@ -35,7 +35,7 @@ function LoadQuiz({ user, setQuizID, setQuiz, quizBank }) {
     <>
       {quizBank ? (
         <>
-          <h2>Enter the ID for the quiz you would like to know. Max ID: {quizBank.length}</h2>
+          <h2>Enter the ID for the quiz you would like to load. Max ID: {quizBank.length}</h2>
           <form onSubmit={handleSubmit}>
             <label>Quiz ID: </label>
             <input type="text" name="textID" value={formData} onChange={(e) => setFormData(e.target.value)} />

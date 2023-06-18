@@ -25,7 +25,9 @@ function LoadQuiz({ user, setQuizID, setQuiz, quizBank }) {
         }
         updateQuiz();
         setQuizID(formData);
-        history.push("/currentquiz");
+        setTimeout(() => {
+          history.push("/currentquiz");
+        }, 200);
       }
     }
   }

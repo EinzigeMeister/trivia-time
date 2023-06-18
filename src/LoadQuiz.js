@@ -14,7 +14,7 @@ function LoadQuiz({ user, setQuizID, setQuiz, quizBank }) {
     if (isNaN(formData)) {
       window.alert(`${formData} is not a number, please enter a valid number`);
     } else {
-      if (formData > quizBank.length || formData <= 0 || !Number.isInteger(formData)) {
+      if (formData > quizBank.length || formData <= 0 || !Number.isInteger(Number.parseInt(formData))) {
         window.alert(`Enter a whole number between 1 and ${quizBank.length}`);
       } else {
         //fetch & update quiz

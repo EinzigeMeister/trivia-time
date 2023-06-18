@@ -43,7 +43,9 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
         const newQuiz = generateQuiz(quizObj);
         setQuiz(newQuiz);
         quizToDB(newQuiz);
-        history.push("/currentquiz");
+        setTimeout(() => {
+          history.push("/currentquiz");
+        }, 300);
       } else {
         console.log(quizObj["response_code"]);
         window.alert("Unable to obtain quiz, try again later");
@@ -51,7 +53,7 @@ function NewQuiz({ user, setQuiz, setQuizID, loadLib, categoryList }) {
     }
     fetchQuiz();
     //update library, setTimeout due to json-server restarting between POST quiz to DB & GET quiz library causing fetch errors
-    setTimeout(buttonTimeout, 1000);
+    setTimeout(buttonTimeout, 400);
     function buttonTimeout() {
       loadLib();
       setDisabled(false);

@@ -1,70 +1,48 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<h1>Trivia TIme</h1>
+<hr><p>Users can login, create and load quizzes over various or mixed topics, take a quiz, and see their statistics from the home page.</p><h2>General Information</h2>
+<hr><ul>
+<li>Trivia Time is a fun app to test your knowledge against your peers</li>
+</ul><h2>Technologies Used</h2>
+<hr><ul>
+<li>CSS</li>
+</ul><ul>
+<li>JavaScript</li>
+</ul><ul>
+<li>React</li>
+</ul><h2>Features</h2>
+<hr><ul>
+<li>Home page to display the number of completed quizzes and overall answered questions</li>
+</ul><ul>
+<li>Login page to set the current user, can be changed at any time while using the app.</li>
+</ul><ul>
+<li>Current quiz page to display the selected (or newly created) quiz</li>
+</ul><ul>
+<li>New Quiz page to generate a quiz from the <a href="https://opentdb.com/">Open Trivia Database</a></li>
+</ul><ul>
+<li>Load quiz page to load any quizzes that were previously created.</li>
+</ul><h2>Setup</h2>
+<hr><p>Requires: Node Package Manager (npm), json-server, React, database with "users" and "quizLib" object arrays (mine is linked <a href="https://github.com/EricsFlatironAcct/json-server-template">here</a>)</p><h5>Steps</h5><ul>
+<li>Download or clone and fork this repo and the database repo above. If you're using your own database, ensure default port is 3001</li>
+</ul><ul>
+<li>Navigate to the database repo and run "npm run dev"</li>
+</ul><ul>
+<li>Navigate to the trivia-time repo and run "npm start"</li>
+</ul><h2>Project Status</h2>
+<hr><p>Completed but can always be improved! Feel free to open an issue/pull request if you have suggestions to make this app better</p><h2>Improvements</h2>
+<hr><ul>
+<li>Add username/password combo</li>
+</ul><ul>
+<li>Show more user stats (breakdown of individual quizzes, IDs of quizzes to be taken, ranking based on current users)</li>
+</ul><h2>Features that can be added</h2>
+<hr><ul>
+<li>Session tokens to prevent duplicate questions during session</li>
+</ul><ul>
+<li>Question database to prevent duplicate questions across all sessions</li>
+</ul><ul>
+<li>Give quizzes a name so they can be accessed by name instead of ID</li>
+</ul><h2>Acknowledgement</h2>
+<hr><ul>
+<li>README file generated by <a href="https://hansalshah007.github.io/readme-generator/">README.md  Generator</a></li>
+</ul><ul>
+<li>Trivia questions are generated from the <a href="https://opentdb.com/">Open Trivia DB</a></li>
+</ul>

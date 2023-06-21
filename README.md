@@ -1,4 +1,4 @@
-<h1>Trivia TIme</h1>
+<h1>Trivia Time</h1>
 <hr><p>Users can login, create and load quizzes over various or mixed topics, take a quiz, and see their statistics from the home page.</p><h2>General Information</h2>
 <hr><ul>
 <li>Trivia Time is a fun app to test your knowledge against your peers</li>
